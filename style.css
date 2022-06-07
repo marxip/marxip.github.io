@@ -68,7 +68,7 @@ a {
 
 .picture::before {
   content: "";
-  background: url("homer.jpg");
+  background: url("Normal.gif");
   background-size: contain;
   border-radius: 50%;
   inset: 0;
