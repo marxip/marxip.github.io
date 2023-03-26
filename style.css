@@ -48,6 +48,10 @@ h1 {
   text-align: center;
 }
 
+h3 {
+  text-align: center;
+}
+
 a {
   color: inherit;
   text-decoration: none;
@@ -100,3 +104,60 @@ main {
 .link i {
   vertical-align: -13%;
 }
+
+.tabcontent.active {
+  display: block;
+}
+
+.tabcontent {
+  display: none;
+}
+
+.tab button {
+  background-color: inherit;
+  transition-duration: 0.4s;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  border-radius: 5px;
+  box-shadow: var(--shadow);
+  min-width: 20ch;
+  text-align: center;
+  padding: 14px 16px;
+  transition: 0.3s;
+  font-size: 17px;
+  font-family: Roboto;
+  font-weight: bold;
+}
+
+.collapsible {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  vertical-align: middle;
+  background-color: inherit;
+  transition-duration: 0.4s;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  border-radius: 5px;
+  box-shadow: var(--shadow);
+  min-width: 20ch;
+  text-align: center;
+  padding: 14px 16px;
+  transition: 0.3s;
+  font-size: 17px;
+  font-family: Roboto;
+  font-weight: bold;
+}
+
+p {
+margin-top:0%;
+margin-left: 100px;
+margin-right: 100px;
+text-align: center;
+}
+
