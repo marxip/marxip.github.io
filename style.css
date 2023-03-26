@@ -122,7 +122,7 @@ main {
   cursor: pointer;
   border-radius: 5px;
   box-shadow: var(--shadow);
-  min-width: 20ch;
+  min-width: 12ch;
   text-align: center;
   padding: 14px 16px;
   transition: 0.3s;
