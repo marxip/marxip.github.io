@@ -179,3 +179,15 @@ img {
   height: 100%;
   object-fit: contain;
   }
+.footer {
+  border-radius: 5px;
+  box-shadow: var(--shadow);
+  background-color: #ffffff;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+  margin-top: 0px;
+  padding-top: 25px;
+  padding-bottom: 25px;
+}
