@@ -34,13 +34,14 @@
     <header>
       <div class="picture" title="Toda la historia de la sociedad humana, hasta la actualidad, es una historia de luchas de clases. Toda lucha de clases es una lucha política por el poder. Es importante siempre tenerlo en cuenta."></div>
       <h1>Massi &#11088; &#11088; &#11088;</h1>
-      <p>Soy Maxi y esta es mi página.</p>
+      <p style="text-align: center;">Soy Maxi y esta es mi página.</p>
     </header>
   </div>
 
   <div class="tab">
     <button class="tablinks active" onclick="openTab(event, 'Musica')">Música</button>
     <button class="tablinks" onclick="openTab(event, 'Cine')">Cine</button>
+    <button class="tablinks" onclick="openTab(event, 'Blog')">Blog</button>
   </div>
 
   <div id="Musica" class="tabcontent active">
@@ -70,7 +71,14 @@
       <h4>⇩ Últimas 5 pelis vistas &#128064;</h4>
       <div class="cinefeed" data-rss-feed="https://letterboxd.com/maxip/rss/" data-rss-link-titles="true" data-rss-title-wrapper="h5" data-rss-max="5"></div>
     </main>
+  </div>
 
+    <div id="Blog" class="tabcontent">
+      <h3>Mi Blog</h3>
+      <main>
+          <p>Aquí publico análisis, ideas y otras cosas interesantes.</p>
+          <a class="link" href="blog/" target="_blank"><i class="ri-article-line"></i> Ir al Blog!</a>
+      </main>
   </div>
 
   <div>

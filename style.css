@@ -48,6 +48,12 @@ h1 {
   text-align: center;
 }
 
+article h1 {
+  font-size: 2.5rem; 
+  font-weight: bold;
+  line-height: 1.2;
+}
+
 h3, h4, h5 {
   text-align: center;
 }
@@ -105,6 +111,11 @@ main {
   vertical-align: -13%;
 }
 
+.tablinks:hover, .button:hover {
+  box-shadow: var(--inner-shadow);
+  outline: none;
+  }
+
 .tabcontent.active {
   display: block;
 }
@@ -131,6 +142,24 @@ main {
   font-weight: bold;
 }
 
+.button {
+  background-color: inherit;
+  transition-duration: 0.4s;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  border-radius: 5px;
+  box-shadow: var(--shadow);
+  min-width: 12ch;
+  text-align: center;
+  padding: 14px 16px;
+  transition: 0.3s;
+  font-size: 17px;
+  font-family: Roboto;
+  font-weight: normal;
+}
+
 .collapsible {
   align-items: center;
   display: flex;
@@ -154,16 +183,35 @@ main {
   font-weight: bold;
 }
 
+.collapsible :hover {
+  transform: scale(1.05)
+}
+
+.collapsible :active {
+  transform: scale(1.05)
+}
+
+
 p {
-margin-top:0%;
-margin-left: 100px;
-margin-right: 100px;
-text-align: center;
+margin-top:5%;
+width: 100%;
+text-align: justify;
+line-height: 1.5;
+}
+
+a:hover {
+text-decoration: underline;
+}
+
+li {
+line-height: 1.5;
+margin-bottom: 10px; 
 }
 
 iframe {
-  margin-top: 20px;
-  margin-bottom: 20px;
+  display: block;
+  margin: 20px auto;
+  max-width: 100%;
 }
 
 .cinefeed {

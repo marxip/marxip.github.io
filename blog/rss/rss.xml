@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='utf-8'?>
+<rss version="2.0">
+  <channel>
+    <title>Mi Blog</title>
+    <link>https://marxip.github.io/blog</link>
+    <description>Últimas entradas del blog</description>
+    <item>
+      <title>Bajo el agua y sobre las olas,
+entre el realismo tecnico y el drama humano</title>
+      <link>https://marxip.github.io/blog/entradas/2025-02-16-GreyhoundDasBoot.html</link>
+      <description />
+      <pubDate>Sun, 16 Feb 2025 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Mother de IDLES, explotacion,
+violencia, resistencia</title>
+      <link>https://marxip.github.io/blog/entradas/2025-02-09-Mother.html</link>
+      <description />
+      <pubDate>Sun, 09 Feb 2025 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Born in War de Future Islands,
+entre lágrimas y pólvora</title>
+      <link>https://marxip.github.io/blog/entradas/2025-02-02-BornInWar.html</link>
+      <description />
+      <pubDate>Sun, 02 Feb 2025 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Lipstick de Ariel Pink, el crimen
+como enigma, el enigma como identidad</title>
+      <link>https://marxip.github.io/blog/entradas/2025-01-19-Lipstick.html</link>
+      <description />
+      <pubDate>Sun, 19 Jan 2025 00:00:00 GMT</pubDate>
+    </item>
+  </channel>
+</rss>
