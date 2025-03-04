@@ -49,9 +49,14 @@ h1 {
 }
 
 article h1 {
-  font-size: 2.5rem; 
+  font-size: 1.70rem; 
   font-weight: bold;
   line-height: 1.2;
+}
+
+article h2 {
+  font-size: 1.40rem;
+  text-align: left; 
 }
 
 h3, h4, h5 {
@@ -63,6 +68,9 @@ a {
   text-decoration: none;
 }
 
+a:focus, a:active {
+  text-decoration: underline;
+}
 .picture {
   border-radius: 50%;
   box-shadow: var(--inner-shadow);
@@ -191,12 +199,43 @@ main {
   transform: scale(1.05)
 }
 
+.share-buttons {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.share-link {
+  display: inline-block;
+  padding: 10px 15px;
+  border-radius: 5px;
+  text-decoration: none;
+  color: white;
+  font-size: 16px;
+  margin: 5px;
+}
+
+.share-link[data-network="twitter"] { background-color: #1DA1F2; } /* Twitter */
+.share-link[data-network="facebook"] { background-color: #1877F2; } /* Facebook */
+.share-link[data-network="whatsapp"] { background-color: #25D366; } /* WhatsApp */
+
+.share-link:hover {
+  opacity: 0.8;
+}
+
 
 p {
 margin-top:5%;
 width: 100%;
 text-align: justify;
 line-height: 1.5;
+}
+
+p.intro {
+text-align: center;
+}
+
+a.intro{
+text-align: center  
 }
 
 a:hover {

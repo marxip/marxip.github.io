@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded", function () {
     let currentPage = 1;
     let posts = [];
 
+    // Función para renderizar los posts
     function renderPosts() {
         let postList = document.getElementById("post-list");
         postList.innerHTML = "";
@@ -25,14 +26,48 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("nextPage").disabled = currentPage === Math.ceil(posts.length / postsPerPage);
     }
 
-    fetch("posts.json")
+    // Determinamos el pathPrefix de forma sencilla y confiable
+    let pathPrefix = "";
+    if (window.location.pathname.includes("entradas") || window.location.pathname.includes("/entradas/")) {
+        pathPrefix = "../"; // Para subcarpetas
+    }
+
+    // Cargar los posts desde JSON
+    fetch(pathPrefix + "posts.json")
         .then(response => response.json())
         .then(data => {
             posts = data;
             renderPosts();
         })
-        .catch(error => console.error("Error cargando posts:", error));
+        .catch(error => console.error("❌ Error cargando posts:", error));
 
+    // Función para compartir en redes sociales
+    const currentURL = encodeURIComponent(window.location.href);
+    const title = encodeURIComponent(document.title);
+
+    document.querySelectorAll(".share-link").forEach(link => {
+        link.addEventListener("click", function (event) {
+            event.preventDefault(); // Evita que el enlace navegue a otra parte
+
+            const network = link.getAttribute("data-network");
+            let shareURL = "";
+
+            // Definir los enlaces de compartición
+            if (network === "twitter") {
+                shareURL = `https://twitter.com/intent/tweet?text=${title}&url=${currentURL}`;
+            } else if (network === "facebook") {
+                shareURL = `https://www.facebook.com/sharer/sharer.php?u=${currentURL}`;
+            } else if (network === "whatsapp") {
+                shareURL = `https://wa.me/?text=${title}%20${currentURL}`;
+            }
+
+            if (shareURL) {
+                window.open(shareURL, "_blank", "noopener,noreferrer");
+            }
+        });
+    });
+
+    // Funciones de paginación
     document.getElementById("prevPage").addEventListener("click", function () {
         if (currentPage > 1) {
             currentPage--;
