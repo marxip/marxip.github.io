@@ -278,3 +278,14 @@ img {
   padding-top: 25px;
   padding-bottom: 25px;
 }
+.instagram-container {
+  max-width: 100%;
+  overflow: hidden;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.instagram-container blockquote {
+  max-width: 100%;
+  margin: 0 auto;
+}
