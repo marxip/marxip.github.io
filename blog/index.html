@@ -12,20 +12,34 @@
         <h1>📝Blog📝</h1>
         <p class="intro">Escribir es resistir. Pero sin sentimentalismos. Postear o morir.</p>
     </header>
-    <main class="container">
-        <ul id="post-list"></ul>
-        <div id="pagination">
-            <button id="prevPage" disabled>Anterior</button>
-            <span id="pageInfo"></span>
-            <button id="nextPage">Siguiente</button>
-        </div>
-        <a class="intro" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC 4.0 Compartir con crédito, sin uso comercial.</a></li>    
-    <div>
-        <button class=button onclick="location.href='../index.html'">Mis Redes</button>
+    <div class="tabb">
+        <button class="tablinks tabb-inicio active" onclick="openTab(event, 'Inicio')">Inicio</button>
+        <button class="tablinks tabb-analisis" onclick="openTab(event, 'Analisis culturales')">Análisis culturales</button>
+        <button class="tablinks tabb-escena" onclick="openTab(event, 'Escena Local')">Escena Local</button>
+        <button class="tablinks tabb-tutoriales" onclick="openTab(event, 'Tutoriales')">Tutoriales</button>
     </div>
+    <main class="container">
+
+        <div id="Inicio" class="tabcontent active"></div>
+            <!-- Aquí va el contenido de 'Incio' -->
+            <ul id="post-list"></ul>
+                <div id="pagination">
+                    <button id="prevPage" disabled>Anterior</button>
+                    <span id="pageInfo"></span>
+                    <button id="nextPage">Siguiente</button>
+                </div>
+      
+   
+        
+
+        <a class="intro" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC 4.0 Compartir con crédito, sin uso comercial.</a></li>    
     
+        <div>
+            <button class=button onclick="location.href='../index.html'">Mis Redes</button>
+        </div>
+
     </main>
-    
+
     <script src="blog.js"></script>
 </body>
 </html>

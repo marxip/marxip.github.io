@@ -280,4 +280,83 @@ img {
   padding-bottom: 25px;
 }
 
+main.container {
+  position: relative;
+  padding-left: 35px; /* Espacio para las anillas */
+}
 
+main.container::before {
+  content: "";
+  position: absolute;
+  left: 5px; /* Distancia del borde */
+  top: 0;
+  width: max(10px, min(2.5vw, 18px)); /* Tamaño adaptable, pero con límites */
+  height: 100%;
+  background: radial-gradient(circle, black 40%, transparent 42%);
+  background-size: max(10px, min(2.5vw, 18px)) max(25px, min(6vw, 40px)); /* Tamaño proporcional con límites */
+  background-repeat: repeat-y;
+}
+
+/* Ajuste para pantallas pequeñas */
+@media (max-width: 600px) {
+  main.container::before {
+      width: max(8px, min(3vw, 14px));
+      background-size: max(8px, min(3vw, 14px)) max(20px, min(7vw, 30px));
+  }
+}
+
+.tabb {
+  display: flex;
+  gap: 10px;
+  padding: 10px;
+/* border-bottom: 2px solid #333; */
+  justify-content: flex-end;
+}
+
+.tabb button {
+  background: none;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-weight: bold;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.tabb-inicio {
+  background-color: #FFFF00 !important;
+  border-radius: 10px 10px 0 0;
+  opacity: 0.6;
+}
+
+.tabb-analisis {
+  background-color: #00FF00 !important;
+  border-radius: 10px 10px 0 0;
+  opacity: 0.6;
+}
+
+.tabb-escena {
+  background-color: #FF9900 !important;
+  border-radius: 10px 10px 0 0;
+  opacity: 0.6;
+}
+
+.tabb-tutoriales {
+  background-color: #00BFFF !important;
+  border-radius: 10px 10px 0 0;
+  opacity: 0.6;
+}
+
+.tabb button.active {
+  opacity: 1;
+  background-color: #4CAF50; /* Cambia el color de fondo en la pestaña activa */
+}
+
+.tabb button:hover {
+  opacity: 0.9;
+}
+
+.post-list {
+  padding: 10px;
+}
