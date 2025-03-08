@@ -124,6 +124,7 @@ main {
   outline: none;
   }
 
+
 .tabcontent.active {
   display: block;
 }
@@ -359,4 +360,42 @@ main.container::before {
 
 .post-list {
   padding: 10px;
+}
+
+#pagination {
+  justify-content: center !important;
+  align-items: center !important;
+}
+
+/* Estilos para la paginación */
+.pagination {
+    display: flex;
+    justify-content: center; /* Centrar los elementos dentro de la paginación */
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.pagination button {
+    padding: 10px 20px;
+    border: none;
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.pagination button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.pagination button:hover:not(:disabled) {
+    background-color: #45a049;
+}
+
+.pagination span#pageInfo {
+    font-size: 1rem;
+    font-weight: bold;
 }
