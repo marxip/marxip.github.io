@@ -1,39 +1,82 @@
+// Variables globales
+let posts = [];
+const postsPerPage = 5;
+let currentPage = 1;
+
+// Función para renderizar posts filtrados por categoría
+function renderPosts(category = 'Inicio') {
+    const activeTab = document.querySelector(`.tabcontent#${category}`);
+    if (!activeTab) return;
+
+    const postList = document.querySelector(`#${category} #post-list`);
+    console.log(`post-list detectado en: ${activeTab.id}`, postList);
+    if (!postList) return;
+
+    postList.innerHTML = "";
+
+    let filteredPosts = category === 'Inicio' ? posts : posts.filter(post => post.category === category);
+    if (!Array.isArray(filteredPosts)) {
+        console.error("❌ filteredPosts no es un array:", filteredPosts);
+        return;
+    }
+
+    const start = (currentPage - 1) * postsPerPage;
+    const paginatedPosts = filteredPosts.slice(start, start + postsPerPage);
+    console.log(`Categoría: ${category}, Posts filtrados:`, filteredPosts);
+
+    paginatedPosts.forEach(post => {
+        const li = document.createElement("li");
+        const a = document.createElement("a");
+        a.href = post.url;
+        a.textContent = `${post.title} (${post.date})`;
+        li.appendChild(a);
+        console.log(`Insertando post: ${post.title} en ${category}`);
+        postList.appendChild(li);
+    });
+
+    updatePaginationButtons(category, filteredPosts.length);
+}
+
+// Función para actualizar los botones de paginación
+function updatePaginationButtons(category, totalPosts) {
+    const activeTab = document.querySelector(`.tabcontent#${category}`);
+    if (!activeTab) return;
+
+    const prevPageButton = activeTab.querySelector(".prevPage");
+    const nextPageButton = activeTab.querySelector(".nextPage");
+    const pageInfo = activeTab.querySelector(".pageInfo");
+
+    const totalPages = Math.ceil(totalPosts / postsPerPage);
+    if (prevPageButton) prevPageButton.disabled = currentPage === 1;
+    if (nextPageButton) nextPageButton.disabled = currentPage >= totalPages;
+    if (pageInfo) pageInfo.textContent = `Página ${currentPage} de ${totalPages}`;
+}
+
+// Función para manejar el cambio de pestañas
+function openTab(event, tabName) {
+    document.querySelectorAll(".tabcontent").forEach(tab => tab.style.display = "none");
+    document.querySelectorAll(".tablinks").forEach(button => button.classList.remove("active"));
+
+    const tabContent = document.getElementById(tabName);
+    if (tabContent) {
+        tabContent.style.display = "block";
+        console.log(`Pestaña activa: ${tabName}`);
+        tabContent.classList.add("active");
+    } else {
+        console.error("No se encontró el elemento con id:", tabName);
+        return;
+    }
+
+    event.currentTarget.classList.add("active");
+    currentPage = 1;
+    renderPosts(tabName);
+}
+
+// Cargar posts y configurar event listeners cuando el DOM esté listo
 document.addEventListener("DOMContentLoaded", function () {
-    const postsPerPage = 5;
-    let currentPage = 1;
-    let posts = [];
-
-    // Función para renderizar los posts
-    function renderPosts() {
-        let postList = document.getElementById("post-list");
-        postList.innerHTML = "";
-
-        let start = (currentPage - 1) * postsPerPage;
-        let end = start + postsPerPage;
-        let paginatedPosts = posts.slice(start, end);
-
-        paginatedPosts.forEach(post => {
-            let li = document.createElement("li");
-            let a = document.createElement("a");
-            a.href = post.url;
-            a.textContent = `${post.title} (${post.date})`;
-            li.appendChild(a);
-            postList.appendChild(li);
-        });
-
-        document.getElementById("pageInfo").textContent = `Página ${currentPage} de ${Math.ceil(posts.length / postsPerPage)}`;
-        document.getElementById("prevPage").disabled = currentPage === 1;
-        document.getElementById("nextPage").disabled = currentPage === Math.ceil(posts.length / postsPerPage);
-    }
-
-    // Determinamos el pathPrefix de forma sencilla y confiable
-    let pathPrefix = "";
-    if (window.location.pathname.includes("entradas") || window.location.pathname.includes("/entradas/")) {
-        pathPrefix = "../"; // Para subcarpetas
-    }
-
-    // Cargar los posts desde JSON
-    fetch(pathPrefix + "posts.json")
+    const basePath = window.location.pathname.includes("/entradas") ? "../" : "./";
+    
+    fetch(`${basePath}posts.json`)
         .then(response => response.json())
         .then(data => {
             posts = data;
@@ -41,6 +84,29 @@ document.addEventListener("DOMContentLoaded", function () {
         })
         .catch(error => console.error("❌ Error cargando posts:", error));
 
+    document.querySelectorAll(".tablinks").forEach(button => {
+        button.addEventListener("click", event => openTab(event, button.textContent));
+    });
+
+    document.addEventListener("click", function (event) {
+        const activeTab = document.querySelector(".tabcontent.active");
+        if (!activeTab) return;
+
+        const category = activeTab.id;
+        const filteredPosts = category === "Inicio" ? posts : posts.filter(post => post.category === category);
+        const totalPages = Math.ceil(filteredPosts.length / postsPerPage);
+
+        if (event.target.classList.contains("prevPage") && currentPage > 1) {
+            currentPage--;
+        }
+
+        if (event.target.classList.contains("nextPage") && currentPage < totalPages) {
+            currentPage++;
+        }
+
+        renderPosts(category);
+    });
+});
     // Función para compartir en redes sociales
     const currentURL = encodeURIComponent(window.location.href);
     const title = encodeURIComponent(document.title);
@@ -66,34 +132,3 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
     });
-
-    // Funciones de paginación
-    document.getElementById("prevPage").addEventListener("click", function () {
-        if (currentPage > 1) {
-            currentPage--;
-            renderPosts();
-        }
-    });
-
-    document.getElementById("nextPage").addEventListener("click", function () {
-        if (currentPage < Math.ceil(posts.length / postsPerPage)) {
-            currentPage++;
-            renderPosts();
-        }
-    });
-});
-
-// funcion para cambiar de pestaña
-function openTab(evt, expOrHab) {
-    var i, tabcontent, tablinks;
-    tabcontent = document.getElementsByClassName("tabcontent");
-    for (i = 0; i < tabcontent.length; i++) {
-        tabcontent[i].style.display = "none";
-    }
-    tablinks = document.getElementsByClassName("tablinks");
-    for (i = 0; i < tablinks.length; i++) {
-        tablinks[i].className = tablinks[i].className.replace(" active", "");
-    }
-    document.getElementById(expOrHab).style.display = "block";
-    evt.currentTarget.className += " active";
-}
