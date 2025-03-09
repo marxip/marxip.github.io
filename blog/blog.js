@@ -136,3 +136,24 @@ document.querySelectorAll(".share-link").forEach(link => {
         }
     });
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+    const frases = [
+        "No tenés déficit de atención. Festejalo compartiendo esto.",
+        "Leer hasta el final es un arte en extinción. Difundí la resistencia.",
+        "Tu paciencia merece un premio. No tengo uno, pero podés compartir esto.",
+        "Este artículo no se va a compartir solo. O sí, pero ayudaría que lo hagas vos.",
+        "Si esto valió tu tiempo, quizás valga el de alguien más. Hacelo viral(?).",
+        "Sobreviviste al scroll. Ahora compartí.",
+    ];
+
+    // Seleccionamos el contenedor ya existente
+    const bloque = document.querySelector(".bloque-compartir");
+
+    if (bloque) {
+        // Seleccionamos una frase aleatoria y la agregamos al contenedor
+        const fraseElegida = frases[Math.floor(Math.random() * frases.length)];
+        bloque.innerHTML = `<p>${fraseElegida}</p>`;
+    }
+});
+
