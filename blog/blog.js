@@ -8,8 +8,7 @@ function renderPosts(category = 'Inicio') {
     const activeTab = document.querySelector(`.tabcontent#${category}`);
     if (!activeTab) return;
 
-    const postList = document.querySelector(`#${category} #post-list`);
-    console.log(`post-list detectado en: ${activeTab.id}`, postList);
+    const postList = activeTab.querySelector("#post-list");
     if (!postList) return;
 
     postList.innerHTML = "";
@@ -22,7 +21,6 @@ function renderPosts(category = 'Inicio') {
 
     const start = (currentPage - 1) * postsPerPage;
     const paginatedPosts = filteredPosts.slice(start, start + postsPerPage);
-    console.log(`Categoría: ${category}, Posts filtrados:`, filteredPosts);
 
     paginatedPosts.forEach(post => {
         const li = document.createElement("li");
@@ -30,7 +28,6 @@ function renderPosts(category = 'Inicio') {
         a.href = post.url;
         a.textContent = `${post.title} (${post.date})`;
         li.appendChild(a);
-        console.log(`Insertando post: ${post.title} en ${category}`);
         postList.appendChild(li);
     });
 
@@ -57,10 +54,16 @@ function openTab(event, tabName) {
     document.querySelectorAll(".tabcontent").forEach(tab => tab.style.display = "none");
     document.querySelectorAll(".tablinks").forEach(button => button.classList.remove("active"));
 
+    // Mostrar la pestaña correspondiente
+    let tab = document.getElementById(tabName);
+    if (tab) {
+        tab.style.display = "block";
+        tab.classList.add('active');
+    }
+
     const tabContent = document.getElementById(tabName);
     if (tabContent) {
         tabContent.style.display = "block";
-        console.log(`Pestaña activa: ${tabName}`);
         tabContent.classList.add("active");
     } else {
         console.error("No se encontró el elemento con id:", tabName);
@@ -107,28 +110,29 @@ document.addEventListener("DOMContentLoaded", function () {
         renderPosts(category);
     });
 });
-    // Función para compartir en redes sociales
-    const currentURL = encodeURIComponent(window.location.href);
-    const title = encodeURIComponent(document.title);
 
-    document.querySelectorAll(".share-link").forEach(link => {
-        link.addEventListener("click", function (event) {
-            event.preventDefault(); // Evita que el enlace navegue a otra parte
+// Función para compartir en redes sociales
+const currentURL = encodeURIComponent(window.location.href);
+const title = encodeURIComponent(document.title);
 
-            const network = link.getAttribute("data-network");
-            let shareURL = "";
+document.querySelectorAll(".share-link").forEach(link => {
+    link.addEventListener("click", function (event) {
+        event.preventDefault(); // Evita que el enlace navegue a otra parte
 
-            // Definir los enlaces de compartición
-            if (network === "twitter") {
-                shareURL = `https://twitter.com/intent/tweet?text=${title}&url=${currentURL}`;
-            } else if (network === "facebook") {
-                shareURL = `https://www.facebook.com/sharer/sharer.php?u=${currentURL}`;
-            } else if (network === "whatsapp") {
-                shareURL = `https://wa.me/?text=${title}%20${currentURL}`;
-            }
+        const network = link.getAttribute("data-network");
+        let shareURL = "";
 
-            if (shareURL) {
-                window.open(shareURL, "_blank", "noopener,noreferrer");
-            }
-        });
+        // Definir los enlaces de compartición
+        if (network === "twitter") {
+            shareURL = `https://twitter.com/intent/tweet?text=${title}&url=${currentURL}`;
+        } else if (network === "facebook") {
+            shareURL = `https://www.facebook.com/sharer/sharer.php?u=${currentURL}`;
+        } else if (network === "whatsapp") {
+            shareURL = `https://wa.me/?text=${title}%20${currentURL}`;
+        }
+
+        if (shareURL) {
+            window.open(shareURL, "_blank", "noopener,noreferrer");
+        }
     });
+});

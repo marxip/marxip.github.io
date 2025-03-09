@@ -13,10 +13,10 @@
         <p class="intro">Escribir es resistir. Pero sin sentimentalismos. Postear o morir.</p>
     </header>
     <div class="tabb">
-        <button class="tablinks tabb-inicio active" onclick="openTab(event, 'Inicio')">Inicio</button>
-        <button class="tablinks tabb-analisis" onclick="openTab(event, 'Análisis culturales')">Análisis culturales</button>
-        <button class="tablinks tabb-escena" onclick="openTab(event, 'Escena Local')">Escena Local</button>
-        <button class="tablinks tabb-tutoriales" onclick="openTab(event, 'Tutoriales')">Tutoriales</button>
+        <button class="tablinks tabb-inicio active" data-tab="Inicio" onclick="openTab(event, 'Inicio')">Inicio</button>
+        <button class="tablinks tabb-analisis" data-tab="Análisis_culturales" onclick="openTab(event, 'Análisis_culturales')">Análisis_culturales</button>
+        <button class="tablinks tabb-escena" data-tab="Escena_local" onclick="openTab(event, 'Escena_local')">Escena_local</button>
+        <button class="tablinks tabb-tutoriales" data-tab="Tutoriales" onclick="openTab(event, 'Tutoriales')">Tutoriales</button>
     </div>
     <main class="container">
         <div id="Inicio" class="tabcontent active">
@@ -29,7 +29,7 @@
             </div>
         </div>
 
-        <div id="Análisis culturales" class="tabcontent">
+        <div id="Análisis_culturales" class="tabcontent">
             <h3>Ensayos, reseñas y análisis de música, cine, y temas culturales en general.</h3>
             <ul id="post-list"></ul>
             <div id="pagination.analisis">
@@ -39,7 +39,7 @@
             </div>
         </div>
 
-        <div id="Escena Local" class="tabcontent">
+        <div id="Escena_local" class="tabcontent">
             <h3>Difusión y crónicas de eventos locales.</h3>
             <ul id="post-list"></ul>
             <div id="pagination.escena">
