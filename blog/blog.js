@@ -157,3 +157,56 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 });
 
+// carousel
+
+document.addEventListener("DOMContentLoaded", () => {
+    const carousel = document.querySelector(".carousel");
+    const items = document.querySelectorAll(".carousel-item");
+    const prevButton = document.getElementById("prev");
+    const nextButton = document.getElementById("next");
+    const dotsContainer = document.querySelector(".carousel-dots");
+  
+    let index = 0;
+    const totalItems = items.length;
+  
+    // Crear puntos dinámicos
+    for (let i = 0; i < totalItems; i++) {
+      const dot = document.createElement("span");
+      dot.classList.add("dot");
+      if (i === 0) dot.classList.add("active");
+      dot.addEventListener("click", () => goToSlide(i));
+      dotsContainer.appendChild(dot);
+    }
+  
+    const dots = document.querySelectorAll(".dot");
+  
+    function updateCarousel() {
+      carousel.style.transform = `translateX(-${index * 100}%)`;
+      dots.forEach(dot => dot.classList.remove("active"));
+      dots[index].classList.add("active");
+    }
+  
+    function goToSlide(i) {
+      index = i;
+      updateCarousel();
+    }
+  
+    prevButton.addEventListener("click", () => {
+      index = index > 0 ? index - 1 : totalItems - 1;
+      updateCarousel();
+    });
+  
+    nextButton.addEventListener("click", () => {
+      index = index < totalItems - 1 ? index + 1 : 0;
+      updateCarousel();
+    });
+  
+    // Swipe en móviles
+    let startX = 0;
+    carousel.addEventListener("touchstart", (e) => startX = e.touches[0].clientX);
+    carousel.addEventListener("touchend", (e) => {
+      let endX = e.changedTouches[0].clientX;
+      if (startX > endX + 50) nextButton.click();
+      if (startX < endX - 50) prevButton.click();
+    });
+  });

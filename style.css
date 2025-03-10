@@ -432,3 +432,69 @@ figcaption {
   right: -10px;
   bottom: -10px;
 }
+
+/* Estilos generales */
+.carousel-wrapper {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+/* Carrusel */
+.carousel {
+  display: flex;
+  transition: transform 0.3s ease-in-out;
+}
+
+.carousel-item {
+  flex: 0 0 100%;
+  scroll-snap-align: center;
+}
+
+.carousel-item img {
+  width: 100%;
+  display: block;
+}
+
+/* Flechas */
+.carousel-arrows {
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.carousel-arrows button {
+  width: 40px;  /* Tamaño fijo */
+  height: 40px; /* Igual al ancho */
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  font-size: 2rem;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+/* Puntos de paginación */
+.carousel-dots {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  margin: 0 5px;
+  background: #ccc;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.dot.active {
+  background: #333;
+}
