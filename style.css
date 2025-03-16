@@ -498,3 +498,21 @@ figcaption {
 .dot.active {
   background: #333;
 }
+
+.tag {
+  display: inline-block;
+  max-width: fit-content; /* Hace que el cuadro se ajuste al tamaño del texto */
+  padding: 5px 10px; /* Espacio extra alrededor del texto */
+  background-color: black; /* Fondo negro */
+  color: white; /* Texto blanco */
+  border-radius: 5px; /* Bordes redondeados */
+  text-align: center; 
+  margin: 0 auto 20px;/* Centra el texto */
+  transform: scale(0.8);
+}
+
+.tagcontainer {
+  width: 100%; /* Asegura que el contenedor ocupe todo el ancho disponible */
+  display: flex;
+  justify-content: center; /* Centra horizontalmente el contenido */
+}
