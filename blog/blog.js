@@ -210,3 +210,21 @@ document.addEventListener("DOMContentLoaded", () => {
       if (startX < endX - 50) prevButton.click();
     });
   });
+
+  document.addEventListener("DOMContentLoaded", function () {
+    const frases = [
+        "⚠️ Spoiler Alert. Sí, hay spoilers. Todos. Hasta los del final. Especialmente los del final. Después no digas que no te avisé.",
+        "⚠️ Spoiler Alert. Esto es un spoiler extendido con justificación teórica. Se arruina todo, pero con fundamento.",
+        "⚠️ Spoiler Alert. Lo que sigue no tiene piedad narrativa. Spoilea todo y además lo explica. Destruir para entender, entender para destruir.",
+        "⚠️ Spoiler Alert. Lo que vas a leer no solo te arruina la trama. Este texto es el fin de la inocencia.",
+    ];
+
+    // Seleccionamos el contenedor ya existente
+    const bloque = document.querySelector(".spoiler-alert");
+
+    if (bloque) {
+        // Seleccionamos una frase aleatoria y la agregamos al contenedor
+        const fraseElegida = frases[Math.floor(Math.random() * frases.length)];
+        bloque.innerHTML = `<p>${fraseElegida}</p>`;
+    }
+});
