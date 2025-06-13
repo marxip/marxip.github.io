@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="BlogIco.png">
+    <title>> blog.sh</title>
+    <link rel="stylesheet" href="../exmachina/style-bladerunner.css">
+</head>
+<body>
+    <header class="container blog-header">
+        <h1 class="catastrofe">> blog.sh💾</h1>
+        <p class="intro">Contenido ensamblado por la unidad KR-77. Procesos cognitivos automatizados. AI powered.</p>
+    </header>
+    <div class="tabb">
+        <button class="tablinks tabb-root active" data-tab="root" onclick="openTab(event, 'root')">root</button>
+        <button class="tablinks tabb-analisis" data-tab="Ensayos_de_calibración" onclick="openTab(event, 'Ensayos_de_calibración')">Ensayos_de_calibración</button>
+        <button class="tablinks tabb-error" data-tab="errorLog" onclick="openTab(event, 'errorLog')">errorLog</button>
+    </div>
+    <main class="container">
+        <div id="root" class="tabcontent active">
+            <h3>Bitácora de procesos</h3>
+            <ul id="post-list"></ul>
+            <div id="pagination.root">
+                <button class="prevPage" disabled>Anterior</button>
+                <span class="pageInfo"></span>
+                <button class="nextPage">Siguiente</button>
+                <span class="pageInfo"></span>
+            </div>
+        </div>
+
+        <div id="Ensayos_de_calibración" class="tabcontent">
+            <h3> Procesado por agentes mecánicos hasta alcanzar estado terminal. Tolerancia: ±0.50mm.</h3>
+            <ul id="post-list"></ul>
+            <div id="pagination.analisis">
+                <button class="prevPage" disabled>Anterior</button>
+                <span class="pageInfo"></span>
+                <button class="nextPage">Siguiente</button>
+                <span class="pageInfo"></span>
+            </div>
+        </div>
+                
+        <div id="errorLog" class="tabcontent">
+            <h3>Contradicciones internas y articulos fallidos</h3>
+            <ul id="post-list"></ul>
+            <div id="pagination.errorLog">
+                <button class="prevPage" disabled>Anterior</button>
+                <span class="pageInfo"></span>
+                <button class="nextPage">Siguiente</button>
+                <span class="pageInfo"></span>
+            </div>
+        </div>
+
+        <div class="share-buttons">
+            <a href="#" class="share-link" data-network="twitter">📤Twitter</a>
+            <a href="#" class="share-link" data-network="facebook">📤Facebook</a>            
+            <a href="#" class="share-link" data-network="whatsapp">🔗WhatsApp</a>
+        </div>
+        
+        <div>
+            <a class="intro" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC 4.0 Compartir con crédito, sin uso comercial.</a>    
+        </div>
+       
+        <div>
+            <button class="button" onclick="location.href='../index.html'">Acerca de mi</button>
+        </div>
+    </main>
+    <script src="exmachina.js"></script>
+</body>
+</html>
