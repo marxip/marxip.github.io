@@ -64,5 +64,29 @@
     "title": "Test entry 10",
     "url": "entradas/test.html",
     "category": "Ensayos_de_calibración"
+  },
+  {
+    "date": "2025-03-08",
+    "title": "Test entry 15",
+    "url": "entradas/test.html",
+    "category": "errorLog"
+  },
+  {
+    "date": "2025-03-08",
+    "title": "Test entry 15",
+    "url": "entradas/test.html",
+    "category": "errorLog"
+  },
+  {
+    "date": "2025-03-08",
+    "title": "Test entry 15",
+    "url": "entradas/test.html",
+    "category": "errorLog"
+  },
+  {
+    "date": "2025-03-08",
+    "title": "Test entry 15",
+    "url": "entradas/test.html",
+    "category": "errorLog"
   }
 ]
