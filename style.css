@@ -362,10 +362,6 @@ main.container::before {
   opacity: 0.9;
 }
 
-.post-list {
-  padding: 10px;
-}
-
 #pagination\.inicio, #pagination\.analisis, #pagination\.escena, #pagination\.tutoriales {
   display: flex;
   justify-content: center;

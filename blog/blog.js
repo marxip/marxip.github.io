@@ -1,14 +1,18 @@
 // Variables globales
 let posts = [];
 const postsPerPage = 5;
-let currentPage = 1;
+let currentPages = {
+    Inicio: 1,
+    'Ensayos de calibración': 1,
+    errorLog: 1
+};
 
 // Función para renderizar posts filtrados por categoría
 function renderPosts(category = 'Inicio') {
     const activeTab = document.querySelector(`.tabcontent#${category}`);
     if (!activeTab) return;
 
-    const postList = activeTab.querySelector("#post-list");
+    const postList = activeTab.querySelector(".post-list");
     if (!postList) return;
 
     postList.innerHTML = "";
@@ -19,7 +23,12 @@ function renderPosts(category = 'Inicio') {
         return;
     }
 
-    const start = (currentPage - 1) * postsPerPage;
+    // Inicializar la página si no existe
+    if (!currentPages[category]) {
+        currentPages[category] = 1;
+    }
+
+    const start = (currentPages[category] - 1) * postsPerPage;
     const paginatedPosts = filteredPosts.slice(start, start + postsPerPage);
 
     paginatedPosts.forEach(post => {
@@ -44,23 +53,45 @@ function updatePaginationButtons(category, totalPosts) {
     const pageInfo = activeTab.querySelector(".pageInfo");
 
     const totalPages = Math.ceil(totalPosts / postsPerPage);
-    if (prevPageButton) prevPageButton.disabled = currentPage === 1;
-    if (nextPageButton) nextPageButton.disabled = currentPage >= totalPages;
-    if (pageInfo) pageInfo.textContent = `Página ${currentPage} de ${totalPages}`;
+    
+    if (prevPageButton) {
+        prevPageButton.disabled = currentPages[category] === 1;
+        // Remover event listeners anteriores y agregar nuevos
+        prevPageButton.replaceWith(prevPageButton.cloneNode(true));
+        const newPrevButton = activeTab.querySelector(".prevPage");
+        newPrevButton.addEventListener("click", () => {
+            if (currentPages[category] > 1) {
+                currentPages[category]--;
+                renderPosts(category);
+            }
+        });
+    }
+    
+    if (nextPageButton) {
+        nextPageButton.disabled = currentPages[category] >= totalPages;
+        // Remover event listeners anteriores y agregar nuevos
+        nextPageButton.replaceWith(nextPageButton.cloneNode(true));
+        const newNextButton = activeTab.querySelector(".nextPage");
+        newNextButton.addEventListener("click", () => {
+            if (currentPages[category] < totalPages) {
+                currentPages[category]++;
+                renderPosts(category);
+            }
+        });
+    }
+    
+    if (pageInfo) pageInfo.textContent = `Página ${currentPages[category]} de ${totalPages}`;
 }
 
 // Función para manejar el cambio de pestañas
 function openTab(event, tabName) {
-    document.querySelectorAll(".tabcontent").forEach(tab => tab.style.display = "none");
+    document.querySelectorAll(".tabcontent").forEach(tab => {
+        tab.style.display = "none";
+        tab.classList.remove("active");
+    });
     document.querySelectorAll(".tablinks").forEach(button => button.classList.remove("active"));
 
     // Mostrar la pestaña correspondiente
-    let tab = document.getElementById(tabName);
-    if (tab) {
-        tab.style.display = "block";
-        tab.classList.add('active');
-    }
-
     const tabContent = document.getElementById(tabName);
     if (tabContent) {
         tabContent.style.display = "block";
@@ -71,7 +102,12 @@ function openTab(event, tabName) {
     }
 
     event.currentTarget.classList.add("active");
-    currentPage = 1;
+    
+    // Inicializar la página de la categoría si no existe
+    if (!currentPages[tabName]) {
+        currentPages[tabName] = 1;
+    }
+    
     renderPosts(tabName);
 }
 
@@ -87,27 +123,12 @@ document.addEventListener("DOMContentLoaded", function () {
         })
         .catch(error => console.error("❌ Error cargando posts:", error));
 
+    // Event listeners para las pestañas
     document.querySelectorAll(".tablinks").forEach(button => {
-        button.addEventListener("click", event => openTab(event, button.textContent));
-    });
-
-    document.addEventListener("click", function (event) {
-        const activeTab = document.querySelector(".tabcontent.active");
-        if (!activeTab) return;
-
-        const category = activeTab.id;
-        const filteredPosts = category === "Inicio" ? posts : posts.filter(post => post.category === category);
-        const totalPages = Math.ceil(filteredPosts.length / postsPerPage);
-
-        if (event.target.classList.contains("prevPage") && currentPage > 1) {
-            currentPage--;
-        }
-
-        if (event.target.classList.contains("nextPage") && currentPage < totalPages) {
-            currentPage++;
-        }
-
-        renderPosts(category);
+        button.addEventListener("click", event => {
+            const tabName = button.textContent.trim();
+            openTab(event, tabName);
+        });
     });
 });
 
@@ -117,12 +138,11 @@ const title = encodeURIComponent(document.title);
 
 document.querySelectorAll(".share-link").forEach(link => {
     link.addEventListener("click", function (event) {
-        event.preventDefault(); // Evita que el enlace navegue a otra parte
+        event.preventDefault();
 
         const network = link.getAttribute("data-network");
         let shareURL = "";
 
-        // Definir los enlaces de compartición
         if (network === "twitter") {
             shareURL = `https://twitter.com/intent/tweet?text=${title}&url=${currentURL}`;
         } else if (network === "facebook") {
@@ -137,6 +157,7 @@ document.querySelectorAll(".share-link").forEach(link => {
     });
 });
 
+// Bloque compartir aleatorio
 document.addEventListener("DOMContentLoaded", function () {
     const frases = [
         "No tenés déficit de atención. Festejalo compartiendo esto.",
@@ -147,18 +168,14 @@ document.addEventListener("DOMContentLoaded", function () {
         "Sobreviviste al scroll. Ahora compartí.",
     ];
 
-    // Seleccionamos el contenedor ya existente
     const bloque = document.querySelector(".bloque-compartir");
-
     if (bloque) {
-        // Seleccionamos una frase aleatoria y la agregamos al contenedor
         const fraseElegida = frases[Math.floor(Math.random() * frases.length)];
         bloque.innerHTML = `<p>${fraseElegida}</p>`;
     }
 });
 
-// carousel
-
+// Carrusel
 document.addEventListener("DOMContentLoaded", () => {
     const carousel = document.querySelector(".carousel");
     const items = document.querySelectorAll(".carousel-item");
@@ -171,47 +188,48 @@ document.addEventListener("DOMContentLoaded", () => {
   
     // Crear puntos dinámicos
     for (let i = 0; i < totalItems; i++) {
-      const dot = document.createElement("span");
-      dot.classList.add("dot");
-      if (i === 0) dot.classList.add("active");
-      dot.addEventListener("click", () => goToSlide(i));
-      dotsContainer.appendChild(dot);
+        const dot = document.createElement("span");
+        dot.classList.add("dot");
+        if (i === 0) dot.classList.add("active");
+        dot.addEventListener("click", () => goToSlide(i));
+        dotsContainer.appendChild(dot);
     }
   
     const dots = document.querySelectorAll(".dot");
   
     function updateCarousel() {
-      carousel.style.transform = `translateX(-${index * 100}%)`;
-      dots.forEach(dot => dot.classList.remove("active"));
-      dots[index].classList.add("active");
+        carousel.style.transform = `translateX(-${index * 100}%)`;
+        dots.forEach(dot => dot.classList.remove("active"));
+        dots[index].classList.add("active");
     }
   
     function goToSlide(i) {
-      index = i;
-      updateCarousel();
+        index = i;
+        updateCarousel();
     }
   
     prevButton.addEventListener("click", () => {
-      index = index > 0 ? index - 1 : totalItems - 1;
-      updateCarousel();
+        index = index > 0 ? index - 1 : totalItems - 1;
+        updateCarousel();
     });
   
     nextButton.addEventListener("click", () => {
-      index = index < totalItems - 1 ? index + 1 : 0;
-      updateCarousel();
+        index = index < totalItems - 1 ? index + 1 : 0;
+        updateCarousel();
     });
   
     // Swipe en móviles
     let startX = 0;
     carousel.addEventListener("touchstart", (e) => startX = e.touches[0].clientX);
     carousel.addEventListener("touchend", (e) => {
-      let endX = e.changedTouches[0].clientX;
-      if (startX > endX + 50) nextButton.click();
-      if (startX < endX - 50) prevButton.click();
+        let endX = e.changedTouches[0].clientX;
+        if (startX > endX + 50) nextButton.click();
+        if (startX < endX - 50) prevButton.click();
     });
-  });
+});
 
-  document.addEventListener("DOMContentLoaded", function () {
+// Spoiler alert aleatorio
+document.addEventListener("DOMContentLoaded", function () {
     const frases = [
         "⚠️ Spoiler Alert. Sí, hay spoilers. Todos. Hasta los del final. Especialmente los del final. Después no digas que no te avisé.",
         "⚠️ Spoiler Alert. Esto es un spoiler extendido con justificación teórica. Se arruina todo, pero con fundamento.",
@@ -219,11 +237,8 @@ document.addEventListener("DOMContentLoaded", () => {
         "⚠️ Spoiler Alert. Lo que vas a leer no solo te arruina la trama. Este texto es el fin de la inocencia.",
     ];
 
-    // Seleccionamos el contenedor ya existente
     const bloque = document.querySelector(".spoiler-alert");
-
     if (bloque) {
-        // Seleccionamos una frase aleatoria y la agregamos al contenedor
         const fraseElegida = frases[Math.floor(Math.random() * frases.length)];
         bloque.innerHTML = `<p>${fraseElegida}</p>`;
     }
