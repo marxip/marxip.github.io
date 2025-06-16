@@ -134,6 +134,15 @@ main {
 
 .tabcontent {
   display: none;
+  text-align: center;
+  width: 100%;
+}
+/* Centrar las listas y quitar el padding izquierdo por defecto */
+.tabcontent ul, .post-list{
+    display: inline-block;
+    text-align: left;
+    padding-left: 0;
+    margin: 0 auto;
 }
 
 .tabcontent.active {
@@ -242,7 +251,7 @@ text-align: center;
 }
 
 a.intro{
-text-align: center  
+text-align: center;
 }
 
 a:hover {
@@ -339,7 +348,7 @@ main.container::before {
   opacity: 0.6;
 }
 
-.tabb-analisis {
+.tabb-ensayos {
   background-color: #00FF00 !important;
   border-radius: 10px 10px 0 0;
   opacity: 0.6;
@@ -364,7 +373,7 @@ main.container::before {
   padding: 10px;
 }
 
-#pagination\.root, #pagination\.analisis, #pagination\.errorLog {
+#pagination\.root, #pagination\.ensayos, #pagination\.errorLog {
   display: flex;
   justify-content: center;
   gap: 10px;
@@ -380,7 +389,6 @@ figure {
   padding: 10px;
   border-radius: 5px;
   box-shadow: var(--shadow);
-  background-color: #f8f8f8;
 }
 
 figure img {
@@ -501,7 +509,7 @@ figcaption {
   display: inline-block;
   max-width: fit-content; /* Hace que el cuadro se ajuste al tamaño del texto */
   padding: 5px 10px; /* Espacio extra alrededor del texto */
-  background-color: black; /* Fondo negro */
+  background-color: rgb(255, 0, 0); /* Fondo magenta */
   color: white; /* Texto blanco */
   border-radius: 5px; /* Bordes redondeados */
   text-align: center; 
