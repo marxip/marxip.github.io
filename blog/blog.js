@@ -126,34 +126,36 @@ document.addEventListener("DOMContentLoaded", function () {
     // Event listeners para las pestañas
     document.querySelectorAll(".tablinks").forEach(button => {
         button.addEventListener("click", event => {
-            const tabName = button.textContent.trim();
+            const tabName = button.dataset.tab || button.textContent.trim();
             openTab(event, tabName);
         });
     });
 });
 
 // Función para compartir en redes sociales
-const currentURL = encodeURIComponent(window.location.href);
-const title = encodeURIComponent(document.title);
+document.addEventListener("DOMContentLoaded", function () {
+    const currentURL = encodeURIComponent(window.location.href);
+    const title = encodeURIComponent(document.title);
 
-document.querySelectorAll(".share-link").forEach(link => {
-    link.addEventListener("click", function (event) {
-        event.preventDefault();
+    document.querySelectorAll(".share-link").forEach(link => {
+        link.addEventListener("click", function (event) {
+            event.preventDefault();
 
-        const network = link.getAttribute("data-network");
-        let shareURL = "";
+            const network = link.getAttribute("data-network");
+            let shareURL = "";
 
-        if (network === "twitter") {
-            shareURL = `https://twitter.com/intent/tweet?text=${title}&url=${currentURL}`;
-        } else if (network === "facebook") {
-            shareURL = `https://www.facebook.com/sharer/sharer.php?u=${currentURL}`;
-        } else if (network === "whatsapp") {
-            shareURL = `https://wa.me/?text=${title}%20${currentURL}`;
-        }
+            if (network === "twitter") {
+                shareURL = `https://twitter.com/intent/tweet?text=${title}&url=${currentURL}`;
+            } else if (network === "facebook") {
+                shareURL = `https://www.facebook.com/sharer/sharer.php?u=${currentURL}`;
+            } else if (network === "whatsapp") {
+                shareURL = `https://wa.me/?text=${title}%20${currentURL}`;
+            }
 
-        if (shareURL) {
-            window.open(shareURL, "_blank", "noopener,noreferrer");
-        }
+            if (shareURL) {
+                window.open(shareURL, "_blank", "noopener,noreferrer");
+            }
+        });
     });
 });
 
@@ -182,6 +184,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const prevButton = document.getElementById("prev");
     const nextButton = document.getElementById("next");
     const dotsContainer = document.querySelector(".carousel-dots");
+
+    // El blog.js también se carga en entradas sin carrusel.
+    // No inicializar nada si la página no contiene el componente.
+    if (!carousel || !items.length || !prevButton || !nextButton || !dotsContainer) {
+        return;
+    }
   
     let index = 0;
     const totalItems = items.length;
@@ -195,7 +203,7 @@ document.addEventListener("DOMContentLoaded", () => {
         dotsContainer.appendChild(dot);
     }
   
-    const dots = document.querySelectorAll(".dot");
+    const dots = dotsContainer.querySelectorAll(".dot");
   
     function updateCarousel() {
         carousel.style.transform = `translateX(-${index * 100}%)`;
